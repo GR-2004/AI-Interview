@@ -1,11 +1,12 @@
-import { UserButton } from '@clerk/nextjs'
 import React from 'react'
+import Header from './_components/Header'
 
 const DashboardPage = () => {
   return (
     <div>
+      <Header/>
       DashboardPage
-      <UserButton/>
+      
     </div>
   )
 }
