@@ -39,30 +39,31 @@ const AddNewInterview = () => {
     const result = await chatSession.sendMessage(InputPromt);
     const MockJsonResp = await result.response
       .text()
-      .replace("```json", "").replace("```", "");
+      .replace("```json", "")
+      .replace("```", "");
     console.log(JSON.parse(MockJsonResp));
     setJsonResponse(MockJsonResp);
 
-    if(MockJsonResp){
-    const resp = await db
-      .insert(MockInterview)
-      .values({
-        mockId: uuidv4(),
-        jsonMockResp: MockJsonResp,
-        jobPos: jobPos,
-        jobDesc: jobDesc,
-        jobExp: jobExp,
-        createdBy: user?.primaryEmailAddress?.emailAddress || '',
-        createdAt: moment().format("DD-MM-yyyy"),
-      }).returning({mockId: MockInterview.mockId});
+    if (MockJsonResp) {
+      const resp = await db
+        .insert(MockInterview)
+        .values({
+          mockId: uuidv4(),
+          jsonMockResp: MockJsonResp,
+          jobPos: jobPos,
+          jobDesc: jobDesc,
+          jobExp: jobExp,
+          createdBy: user?.primaryEmailAddress?.emailAddress || "",
+          createdAt: moment().format("DD-MM-yyyy"),
+        })
+        .returning({ mockId: MockInterview.mockId });
 
-    console.log("Inserted Id:", resp);
-    if(resp){
-      setOpenDialog(false);
-      router.push(`/dashboard/interview/${resp[0]?.mockId}`)
-    }
-    }
-    else {
+      console.log("Inserted Id:", resp);
+      if (resp) {
+        setOpenDialog(false);
+        router.push(`/dashboard/interview/${resp[0]?.mockId}`);
+      }
+    } else {
       alert("something went wrong");
     }
     setLoading(false);

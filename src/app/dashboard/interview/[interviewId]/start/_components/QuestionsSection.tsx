@@ -2,16 +2,14 @@ import { Lightbulb, Volume2 } from "lucide-react";
 import React from "react";
 
 const QuestionsSection = ({ interviewQuestion, activeQuestionIndex }: any) => {
-
-  function textToSpeech(question:string) {
-    if('speechSynthesis' in window){
+  function textToSpeech(question: string) {
+    if ("speechSynthesis" in window) {
       const speech = new SpeechSynthesisUtterance(question);
-      window.speechSynthesis.speak(speech)
+      window.speechSynthesis.speak(speech);
     } else {
-      alert("Sorry, Your Browser does not support text to speech")
+      alert("Sorry, Your Browser does not support text to speech");
     }
-  } 
-
+  }
 
   return (
     interviewQuestion && (
@@ -19,9 +17,11 @@ const QuestionsSection = ({ interviewQuestion, activeQuestionIndex }: any) => {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
           {interviewQuestion &&
             interviewQuestion.map((question: string, index: number) => (
-              <h2 key={index}
+              <h2
+                key={index}
                 className={`p-2 bg-secondary rounded-full text-xs md:text-sm text-center cursor-pointer ${
-                  activeQuestionIndex == index && "text-purple-600 font-extrabold"
+                  activeQuestionIndex == index &&
+                  "text-purple-600 font-extrabold"
                 }`}
               >
                 Question {index + 1}
@@ -31,7 +31,12 @@ const QuestionsSection = ({ interviewQuestion, activeQuestionIndex }: any) => {
         <h2 className="my-10 text-md md:text-lg">
           {interviewQuestion[activeQuestionIndex]?.question}
         </h2>
-        <Volume2 className="cursor-pointer" onClick={() => textToSpeech(interviewQuestion[activeQuestionIndex]?.question)}/>
+        <Volume2
+          className="cursor-pointer"
+          onClick={() =>
+            textToSpeech(interviewQuestion[activeQuestionIndex]?.question)
+          }
+        />
         <div className="border rounded-lg p-5 bg-blue-100 mt-20">
           <h2 className="flex gap-2 items-center text-purple-600">
             <Lightbulb />

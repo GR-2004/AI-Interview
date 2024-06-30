@@ -52,8 +52,12 @@ const FeedbackPage = ({ params }: any) => {
           </h2>
         ) : (
           <>
-            <h2 className="text-3xl font-bold text-green-500">Congratulation!</h2>
-            <h2 className="font-bold text-2xl">Here is your interview feedback</h2>
+            <h2 className="text-3xl font-bold text-green-500">
+              Congratulation!
+            </h2>
+            <h2 className="font-bold text-2xl">
+              Here is your interview feedback
+            </h2>
             <h2 className="text-purple-600 text-lg my-3">
               Your overall Interview Rating: <strong>7/10</strong>
             </h2>
