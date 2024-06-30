@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 import { MockInterview } from "@/utils/schema";
 import { useUser } from "@clerk/nextjs";
 import { desc, eq } from "drizzle-orm";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import InterviewItemCard from "./InterviewItemCard";
 
 interface InterviewItem {
@@ -21,13 +21,7 @@ const InterviewList = () => {
   const { user } = useUser();
   const [interviewList, setInterviewList] = useState<InterviewItem[]>([]);
 
-  useEffect(() => {
-    if (user) {
-      GetInterviewList();
-    }
-  }, [user]);
-
-  const GetInterviewList = async () => {
+  const GetInterviewList = useCallback(async() => {
     if (user?.primaryEmailAddress?.emailAddress) {
       const result = await db
         .select()
@@ -42,7 +36,14 @@ const InterviewList = () => {
       // Handle the case where the email address is undefined
       console.log("User email address is undefined");
     }
-  };
+  }, [user?.primaryEmailAddress?.emailAddress]); 
+
+  useEffect(() => {
+    if (user) {
+      GetInterviewList();
+    }
+  }, [user, GetInterviewList]);
+
 
   return (
     <div>

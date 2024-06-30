@@ -12,7 +12,7 @@ import { eq } from "drizzle-orm";
 import { ChevronsUpDownIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 interface resultInterface {
   id: number;
@@ -29,11 +29,8 @@ interface resultInterface {
 const FeedbackPage = ({ params }: any) => {
   const [feedbaackList, setFeedbaackList] = useState<resultInterface[]>([]);
   const router = useRouter();
-  useEffect(() => {
-    GetFeedback();
-  }, []);
 
-  const GetFeedback = async () => {
+  const GetFeedback = useCallback(async () => {
     const result: resultInterface[] = await db
       .select()
       .from(UserAnswer)
@@ -41,7 +38,12 @@ const FeedbackPage = ({ params }: any) => {
       .orderBy(UserAnswer.id);
     console.log(result);
     setFeedbaackList(result);
-  };
+  }, []);
+
+  useEffect(() => {
+    GetFeedback();
+  }, [GetFeedback]);
+
   return (
     <>
       <Header />

@@ -2,7 +2,7 @@
 import { db } from "@/lib/db";
 import { MockInterview } from "@/utils/schema";
 import { eq } from "drizzle-orm";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Header from "../../_components/Header";
 import Webcam from "react-webcam";
 import { Lightbulb, WebcamIcon } from "lucide-react";
@@ -26,28 +26,29 @@ const Interview = ({ params }: any) => {
   >(undefined);
   const [webcamEnable, setWebcamEnable] = useState(false);
 
-  useEffect(() => {
-    console.log(params.interviewId);
-    GetInterviewDetails();
-  }, []);
-
   /*
    Used to get interview details by mockid
   */
-  const GetInterviewDetails = async () => {
+  const GetInterviewDetails = useCallback(async () => {
     const result: ResultInterface[] = await db
       .select()
       .from(MockInterview)
       .where(eq(MockInterview.mockId, params.interviewId));
 
     setInterviewData(result[0]);
-  };
+  },[params.interviewId])
+
+  useEffect(() => {
+    console.log(params.interviewId);
+    GetInterviewDetails();
+  }, [GetInterviewDetails]);
+
 
   return (
     <>
       <Header />
       <div className="my-10 flex justify-center flex-col items-center">
-        <h2 className="font-bold text-2xl">Let's Get Started</h2>
+        <h2 className="font-bold text-2xl">Let&apos;s Get Started</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 py-14 lg:gap-48">
           <div className="flex flex-col my-5 gap-5 justify-center items-center max-w-96">
             <div className="flex flex-col p-5 rounded-lg border gap-5">
