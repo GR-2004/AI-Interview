@@ -89,22 +89,22 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <p className="text-gray-600 mb-4">
-                  "AI Mock Interview helped me land my dream job! The questions
-                  were spot-on and the feedback was invaluable."
+                &quot;AI Mock Interview helped me land my dream job! The questions
+                  were spot-on and the feedback was invaluable.&quot;
                 </p>
                 <p className="text-blue-500 font-bold">- Jane Doe</p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <p className="text-gray-600 mb-4">
-                  "A fantastic tool for anyone preparing for interviews. The AI
-                  technology is truly impressive."
+                &quot;A fantastic tool for anyone preparing for interviews. The AI
+                  technology is truly impressive.&quot;
                 </p>
                 <p className="text-blue-500 font-bold">- John Smith</p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <p className="text-gray-600 mb-4">
-                  "The real-time feedback feature is a game-changer. Highly
-                  recommend this platform!"
+                &quot;The real-time feedback feature is a game-changer. Highly
+                  recommend this platform!&quot;
                 </p>
                 <p className="text-blue-500 font-bold">- Alice Johnson</p>
               </div>
