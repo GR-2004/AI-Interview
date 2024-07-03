@@ -99,7 +99,7 @@ const FeedbackPage = ({ params }: any) => {
               ))}
           </>
         )}
-        <Button onClick={() => router.replace(`/dashboard`)}>Go Home</Button>
+        <Button onClick={() => router.replace(`/`)}>Go Home</Button>
       </div>
     </>
   );
