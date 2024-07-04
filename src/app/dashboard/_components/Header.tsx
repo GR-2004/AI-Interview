@@ -38,6 +38,7 @@ function Header() {
           </li>
         </Link>
 
+        <Link href={"/questions"}>
         <li
           className={`hover:text-primary hover:font-bold transition-all
             cursor-pointer
@@ -46,6 +47,7 @@ function Header() {
         >
           Questions
         </li>
+        </Link>
         <Link href={"/dashboard/upgrade"}>
           <li
             className={`hover:text-primary hover:font-bold transition-all
@@ -64,6 +66,16 @@ function Header() {
         >
           How it Works?
         </li>
+        <Link href={"/career-paths"}>
+        <li
+          className={`hover:text-primary hover:font-bold transition-all
+            cursor-pointer
+            ${path == "/career-paths" && "text-primary font-bold"}
+            `}
+        >
+          Career Paths
+        </li>
+        </Link>
       </ul>
       {
         user ? <UserButton /> : <Link href={"/sign-in"}><Button>Sign in</Button></Link>
