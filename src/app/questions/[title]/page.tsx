@@ -23,7 +23,7 @@ const Page = () => {
     }, []);
 
     const handlePrompt = async () => {
-      const InputPrompt = `Please generate the top 20 interview questions and answers for a ${newTitle}, considering the current technical landscape (e.g., focus on cloud technologies and modern frameworks). Provide the questions and answers in JSON format, with "question" and "answer" as fields in the JSON objects.`;
+      const InputPrompt = `Please generate the top 10 interview questions and answers for a ${newTitle}, considering the current technical landscape (e.g., focus on cloud technologies and modern frameworks). Provide the questions and answers in JSON format, with "question" and "answer" as fields in the JSON objects.`;
 
       const result = await chatSession.sendMessage(InputPrompt);
       const finalRes = result.response.candidates[0].content.parts[0].text;
