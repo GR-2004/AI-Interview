@@ -5,42 +5,48 @@ export default [
     cost: 0,
     offering: [
       {
-        value: "✔️ Create 3 Free Mock Interview",
+        value: "✔️ Create Multiple Free Mock Interviews",
       },
       {
-        value: "✔️ Unlimited Retake Interview",
+        value: "✔️ Unlimited Feedback Access",
       },
       {
-        value: "❌ Practice Question",
+        value: "✔️ Practice Question Access",
       },
       {
-        value: "❌ Tubeguruji.Com Exlcusive App Access",
+        value: "✔️ Career Guidance",
       },
       {
-        value: "❌ Email Support",
+        value: "✔️ Access to Basic Interview Resources",
       },
     ],
   },
   {
-    id: 1,
+    id: 2,
     name: "Monthly",
     cost: 7.99,
     paymentLink: "https://buy.stripe.com/test_28o9EjbkvgfQ8VOeUV",
     offering: [
       {
-        value: "✔️ Create 3 Free Mock Interview",
+        value: "✔️ Create Multiple Free Mock Interviews",
       },
       {
-        value: "✔️ Unlimited Retake Interview",
+        value: "✔️ Unlimited Feedback Access",
       },
       {
-        value: "✔️ Practice Question",
+        value: "✔️ Practice Question Access",
       },
       {
-        value: "✔️ Tubeguruji.Com Exlcusive App Access",
+        value: "✔️ Career Guidance",
+      }, 
+      {
+        value: "✔️ Resume Support",
       },
       {
-        value: "✔️ Email Support",
+        value: "✔️ Access to Premium Interview Resources",
+      },
+      {
+        value: "✔️ Personalized Career Advice",
       },
     ],
   },
