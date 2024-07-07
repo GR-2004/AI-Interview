@@ -11,7 +11,6 @@ import { db } from "@/lib/db";
 import { UserAnswer } from "@/utils/schema";
 import { useUser } from "@clerk/nextjs";
 import moment from "moment";
-import { Check } from 'lucide-react';
 
 const RecordAnswerSection = ({
   interviewQuestion,
@@ -87,7 +86,7 @@ const RecordAnswerSection = ({
 
     if (resp) {
       toast({
-        title: `${<Check/>} User Answer recorded successfully`,
+        title: "✅ User Answer recorded successfully",
       });
       setUserAnswer("");
       setResults([]);
