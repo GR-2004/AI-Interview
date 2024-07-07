@@ -19,7 +19,7 @@ export default function Home() {
             </p>
             <Link
               href="/dashboard"
-              className="bg-white text-blue-500 font-bold py-2 px-4 rounded"
+              className="bg-white text-blue-500 font-bold py-2 px-4 rounded hover:bg-slate-300 hover:text-white"
             >
               Get Started
             </Link>
@@ -30,13 +30,13 @@ export default function Home() {
         <section className="py-20">
           <div className="container mx-auto px-6">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold">Features</h2>
+              <h2 className="text-3xl font-bold ">Features</h2>
               <p className="text-gray-600 mt-4">
                 Discover what makes our AI mock interview platform unique.
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-white p-6 rounded-lg shadow-lg">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 ">
+              <div className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
                 <Image
                   src="/ai.png"
                   width={64}
@@ -50,7 +50,7 @@ export default function Home() {
                   technology.
                 </p>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-lg">
+              <div className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
                 <Image
                   src="/feedback.png"
                   width={64}
@@ -64,7 +64,7 @@ export default function Home() {
                   performance.
                 </p>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-lg">
+              <div className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
                 <Image
                   src="/community.png"
                   width={64}
@@ -117,7 +117,7 @@ export default function Home() {
           <div className="container mx-auto px-6 text-center">
             <h2 className="text-3xl font-bold mb-8">How It Works</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-white p-6 rounded-lg shadow-lg">
+              <div className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
                 <Image
                   src="/sign-up.webp"
                   width={64}
@@ -130,7 +130,7 @@ export default function Home() {
                   Create your account to get started.
                 </p>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-lg">
+              <div className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
                 <Image
                   src="/ai-interview.jpg"
                   width={64}
@@ -146,7 +146,7 @@ export default function Home() {
                   feedback.
                 </p>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-lg">
+              <div className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
                 <Image
                   src="/success.png"
                   width={100}
@@ -174,7 +174,7 @@ export default function Home() {
             </p>
             <Link
               href="/dashboard/upgrade"
-              className="bg-blue-500 text-white font-bold py-2 px-4 rounded"
+              className="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:text-blue-500 hover:bg-white"
             >
               View Pricing Plans
             </Link>
