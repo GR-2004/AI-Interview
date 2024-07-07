@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import React, { useEffect } from "react";
 
 function Header() {
-  const {user} = useUser();
+  const { user } = useUser();
   const path = usePathname();
   useEffect(() => {
     console.log(path);
@@ -39,14 +39,14 @@ function Header() {
         </Link>
 
         <Link href={"/questions"}>
-        <li
-          className={`hover:text-primary hover:font-bold transition-all
+          <li
+            className={`hover:text-primary hover:font-bold transition-all
             cursor-pointer
             ${path == "/dashboard/questions" && "text-primary font-bold"}
             `}
-        >
-          Questions
-        </li>
+          >
+            Questions
+          </li>
         </Link>
         <Link href={"/dashboard/upgrade"}>
           <li
@@ -58,29 +58,34 @@ function Header() {
             Upgrade
           </li>
         </Link>
-        <li
-          className={`hover:text-primary hover:font-bold transition-all
-            cursor-pointer
-            ${path == "/dashboard/how" && "text-primary font-bold"}
-            `}
-        >
-          How it Works?
-        </li>
         <Link href={"/career-paths"}>
-        <li
-          className={`hover:text-primary hover:font-bold transition-all
+          <li
+            className={`hover:text-primary hover:font-bold transition-all
+                  cursor-pointer
+                  ${path == "/career-paths" && "text-primary font-bold"}
+                  `}
+          >
+            Career Paths
+          </li>
+        </Link>
+        <Link href={"/howitworks"}>
+          <li
+            className={`hover:text-primary hover:font-bold transition-all
             cursor-pointer
-            ${path == "/career-paths" && "text-primary font-bold"}
+            ${path == "/howitworks" && "text-primary font-bold"}
             `}
-        >
-          Career Paths
-        </li>
+          >
+            How it Works?
+          </li>
         </Link>
       </ul>
-      {
-        user ? <UserButton /> : <Link href={"/sign-in"}><Button>Sign in</Button></Link>
-      }
-      
+      {user ? (
+        <UserButton />
+      ) : (
+        <Link href={"/sign-in"}>
+          <Button>Sign in</Button>
+        </Link>
+      )}
     </div>
   );
 }
