@@ -11,9 +11,10 @@ import {
 } from "@radix-ui/react-collapsible";
 import { eq } from "drizzle-orm";
 import { ChevronsUpDownIcon } from "lucide-react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface resultInterface {
   id: number;
@@ -30,6 +31,7 @@ interface resultInterface {
 const FeedbackPage = ({ params }: any) => {
   const [avgRating, setAvgRating] = useState<number>(0);
   const [feedbackList, setFeedbackList] = useState<resultInterface[]>([]);
+  const [errorOccurred, setErrorOccurred] = useState<boolean>(false);  // Track errors
   const router = useRouter();
 
   const normalizeRating = (rating: number, maxRating: number) => {
@@ -40,28 +42,39 @@ const FeedbackPage = ({ params }: any) => {
   };
 
   const GetFeedback = useCallback(async () => {
-    const result: resultInterface[] = await db
-      .select()
-      .from(UserAnswer)
-      .where(eq(UserAnswer.mockIdRef, params.interviewId))
-      .orderBy(UserAnswer.id);
-    console.log(result);
-    setFeedbackList(result);
+    if (errorOccurred) return;  // Avoid further actions if an error has occurred
 
-    if (result.length > 0) {
-      const normalizedRatings = result.map((item) => {
-        const rating = Number(item.rating);
-        if (!isNaN(rating)) {
-          return normalizeRating(rating, rating > 5 ? 10 : 5);
-        }
-        return 0;
-      });
+    try {
+      console.log("Fetching feedback...");  // Debugging line
+      const result = await db
+        .select()
+        .from(UserAnswer)
+        .where(eq(UserAnswer.mockIdRef, params.interviewId))
+        .orderBy(UserAnswer.id);
 
-      const total = normalizedRatings.reduce((acc, rating) => acc + rating, 0);
-      const average = total / normalizedRatings.length;
-      setAvgRating(average);
+      setFeedbackList(result);
+
+      if (result.length > 0) {
+        const normalizedRatings = result.map((item) => {
+          const rating = Number(item.rating);
+          if (!isNaN(rating)) {
+            return normalizeRating(rating, rating > 5 ? 10 : 5);
+          }
+          return 0;
+        });
+
+        const total = normalizedRatings.reduce((acc, rating) => acc + rating, 0);
+        const average = total / normalizedRatings.length;
+        setAvgRating(average);
+      }
+    } catch (error) {
+      console.error('Error fetching feedback:', error);
+      if (!errorOccurred) {
+        toast.error('Failed to fetch feedback. Please try again later.');
+        setErrorOccurred(true);  // Set the error state to true
+      }
     }
-  }, [params.interviewId]);
+  }, [params.interviewId, errorOccurred]);  // Ensure errorOccurred is a dependency
 
   useEffect(() => {
     GetFeedback();
@@ -71,6 +84,7 @@ const FeedbackPage = ({ params }: any) => {
     <>
       <Header />
       <div className="p-10">
+        <ToastContainer /> {/* Ensure ToastContainer is included */}
         {feedbackList.length === 0 ? (
           <h2 className="font-bold text-xl text-gray-500">
             No Interview Feedback Record Found
@@ -84,7 +98,8 @@ const FeedbackPage = ({ params }: any) => {
               Here is your interview feedback
             </h2>
             <h2 className="text-purple-600 text-lg my-3">
-              Your overall Interview Rating: <strong>{avgRating.toFixed(1)}/10</strong>
+              Your overall Interview Rating:{" "}
+              <strong>{avgRating.toFixed(1)}/10</strong>
             </h2>
             <h2 className="text-sm text-gray-500">
               Find Below Interview Questions with Correct Answer, Your Answer
