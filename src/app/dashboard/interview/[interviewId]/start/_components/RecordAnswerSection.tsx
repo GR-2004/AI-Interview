@@ -71,10 +71,12 @@ const RecordAnswerSection = ({
       console.log(JsonFeedbackResp);
 
       // Delete previous answers with the same mockId
-      await db
+      const deleteResult = await db
         .delete(UserAnswer)
         .where(eq(UserAnswer.mockIdRef, interviewData?.mockId))
         .execute();
+
+      console.log("Delete Result:", deleteResult); // Log the delete result to check if it was successful
 
       // Insert new answer
       const resp = await db.insert(UserAnswer).values({
