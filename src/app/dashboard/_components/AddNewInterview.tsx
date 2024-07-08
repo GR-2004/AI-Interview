@@ -1,4 +1,3 @@
-"use client";
 import React, { useState } from "react";
 import {
   Dialog,
@@ -6,7 +5,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,6 +17,8 @@ import { v4 as uuidv4 } from "uuid";
 import { useUser } from "@clerk/nextjs";
 import moment from "moment";
 import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddNewInterview = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -35,16 +35,19 @@ const AddNewInterview = () => {
     setLoading(true);
     console.log(jobDesc, jobExp, jobPos);
 
-    const InputPromt = `job position - ${jobPos}, job description - ${jobDesc}, Years of experience - ${jobExp}. Depends on this information please give me ${process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT} interview question and answer in json format. give question and answer as filed in json.`;
-    const result = await chatSession.sendMessage(InputPromt);
-    const MockJsonResp = await result.response
-      .text()
-      .replace("```json", "")
-      .replace("```", "");
-    console.log(JSON.parse(MockJsonResp));
-    setJsonResponse(MockJsonResp);
+    const InputPrompt = `job position - ${jobPos}, job description - ${jobDesc}, Years of experience - ${jobExp}. Depends on this information please give me ${process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT} interview question and answer in json format. give question and answer as field in json.`;
 
-    if (MockJsonResp) {
+    try {
+      // Requesting data from the chat session
+      const result = await chatSession.sendMessage(InputPrompt);
+      const MockJsonResp = await result.response.text()
+        .replace("```json", "")
+        .replace("```", "");
+
+      console.log(JSON.parse(MockJsonResp));
+      setJsonResponse(MockJsonResp);
+
+      // Inserting data into the database
       const resp = await db
         .insert(MockInterview)
         .values({
@@ -59,14 +62,18 @@ const AddNewInterview = () => {
         .returning({ mockId: MockInterview.mockId });
 
       console.log("Inserted Id:", resp);
-      if (resp) {
+      if (resp && resp[0]?.mockId) {
         setOpenDialog(false);
-        router.push(`/dashboard/interview/${resp[0]?.mockId}`);
+        router.push(`/dashboard/interview/${resp[0].mockId}`);
+      } else {
+        throw new Error("Failed to get the mock interview ID.");
       }
-    } else {
-      alert("something went wrong");
+    } catch (error) {
+      console.error('Error occurred:', error);
+      toast.error('Something went wrong. Please try again later.');  // Error toast notification
+    } finally {
+      setLoading(false);  // Ensure loading state is always reset
     }
-    setLoading(false);
   };
 
   return (
@@ -90,7 +97,7 @@ const AddNewInterview = () => {
                   <div className="mt-7 my-3">
                     <label>Job Role/Position</label>
                     <Input
-                      placeholder="e.g. Full Stack Devloper"
+                      placeholder="e.g. Full Stack Developer"
                       required
                       onChange={(e) => setJobPos(e.target.value)}
                     />
@@ -105,7 +112,7 @@ const AddNewInterview = () => {
                     />
                   </div>
                   <div className="my-3">
-                    <label>Years of experience</label>
+                    <label>Years of Experience</label>
                     <Input
                       placeholder="5"
                       type="number"
@@ -139,6 +146,7 @@ const AddNewInterview = () => {
           </DialogHeader>
         </DialogContent>
       </Dialog>
+      <ToastContainer /> {/* Ensure ToastContainer is included */}
     </div>
   );
 };
