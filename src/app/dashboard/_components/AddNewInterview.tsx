@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import {
   Dialog,
@@ -17,8 +18,8 @@ import { v4 as uuidv4 } from "uuid";
 import { useUser } from "@clerk/nextjs";
 import moment from "moment";
 import { useRouter } from "next/navigation";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddNewInterview = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -40,7 +41,8 @@ const AddNewInterview = () => {
     try {
       // Requesting data from the chat session
       const result = await chatSession.sendMessage(InputPrompt);
-      const MockJsonResp = await result.response.text()
+      const MockJsonResp = await result.response
+        .text()
         .replace("```json", "")
         .replace("```", "");
 
@@ -69,10 +71,10 @@ const AddNewInterview = () => {
         throw new Error("Failed to get the mock interview ID.");
       }
     } catch (error) {
-      console.error('Error occurred:', error);
-      toast.error('Something went wrong. Please try again later.');  // Error toast notification
+      console.error("Error occurred:", error);
+      toast.error("Something went wrong. Please try again later."); // Error toast notification
     } finally {
-      setLoading(false);  // Ensure loading state is always reset
+      setLoading(false); // Ensure loading state is always reset
     }
   };
 
