@@ -1,4 +1,5 @@
 "use client";
+
 import { db } from "@/lib/db";
 import { MockInterview } from "@/utils/schema";
 import { useUser } from "@clerk/nextjs";
@@ -55,6 +56,21 @@ const InterviewList = () => {
     }
   }, [user, GetInterviewList]);
 
+  const handleDelete = async (mockId: string) => {
+    try {
+      // Delete interview from the database
+      await db.delete(MockInterview).where(eq(MockInterview.mockId, mockId));
+      console.log(`Deleted interview with mockId: ${mockId}`);
+      // Remove the deleted interview from the state
+      setInterviewList((prevList) => prevList.filter((interview) => interview.mockId !== mockId));
+      // Show success toast message
+      toast.success('Interview deleted successfully.');
+    } catch (error) {
+      console.error('Error deleting interview:', error);
+      toast.error('Failed to delete the interview. Please try again later.');
+    }
+  };
+
   return (
     <div>
       <ToastContainer /> {/* Ensure ToastContainer is included */}
@@ -67,7 +83,11 @@ const InterviewList = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-3">
           {interviewList.length > 0 ? (
             interviewList.map((interview, index) => (
-              <InterviewItemCard key={index} interview={interview} />
+              <InterviewItemCard
+                key={index}
+                interview={interview}
+                onDelete={handleDelete}  
+              />
             ))
           ) : (
             <p className="text-center text-gray-500">No previous interviews found.</p>
