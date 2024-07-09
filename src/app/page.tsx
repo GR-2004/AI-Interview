@@ -4,7 +4,7 @@ import Header from "./dashboard/_components/Header";
 
 export default function Home() {
   return (
-    <>
+    <div>
       <Header />
       <div className="bg-gray-100">
         {/* Hero Section */}
@@ -298,6 +298,6 @@ export default function Home() {
           </div>
         </footer>
       </div>
-    </>
+    </div>
   );
 }
