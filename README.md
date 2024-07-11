@@ -7,9 +7,7 @@ Welcome to AI Interview Mocker, an AI-powered platform designed to help you mast
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Setup and Installation](#setup-and-installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
+- [Pages](#pages)
 - [Contact](#contact)
 
 ## Project Overview
@@ -74,3 +72,10 @@ The Question Page provides a vast collection of interview preparation questions 
 The Pricing Page outlines the various subscription plans available for AI Interview Mocker. It provides detailed information on the features and benefits of each plan, helping users choose the option that best suits their needs and budget.
 
 
+## Contact
+
+For any questions, feedback, or support, please feel free to reach out to talk:
+
+- **Email:** [ganeshrana2039@gmail.com](mailto:ganeshrana2039@gmail.com)
+- **LinkedIn:** [ganesh-rana](https://www.linkedin.com/in/ganesh-rana/)
+- **GitHub Issues:** [GitHub Issues Page](https://github.com/GR-2004/AI-Interview/issues)
